@@ -38,4 +38,30 @@ public class AccountTests {
 		// Assert
 		Assertions.assertEquals(expectedValue, account.getBalance());		
 	}
+	
+	@Test
+	public void withdrawShouldReduceBalanceWhenEnoughFunds() {
+		// Arrange
+		double amount = 200;
+		double initialBalance = 1000;
+		double expectedValue = 800;
+		Account account = AccountFactory.createAccount(initialBalance);
+		// Act 
+		account.withdraw(amount);
+		// Assert
+		Assertions.assertEquals(expectedValue, account.getBalance());
+	}
+	
+	@Test
+	public void withdrawShouldThrowExceptionWhenInsufucientBalace() {
+		// Assert
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			// Arrange
+			double amount = 2000;
+			double initialBalance = 1000;
+			Account account = AccountFactory.createAccount(initialBalance);
+			// Act 
+			account.withdraw(amount);
+		});
+	}
 }
